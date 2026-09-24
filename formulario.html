@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario y Modal - Utileria.js</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <div class="container">
+    <h2>Formulario de Registro</h2>
+    <form id="registroForm">
+      
+      <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" required>
+      </div>
+
+      <div class="form-group">
+        <label for="correo">Correo Electrónico:</label>
+        <input type="email" id="correo" required>
+      </div>
+
+      <div class="form-group">
+        <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+        <input type="date" id="fechaNacimiento" required>
+      </div>
+
+      <div class="form-group">
+        <label for="curp">CURP:</label>
+        <input type="text" id="curp" placeholder="Ej. AAAA000000HXXXXX00" required>
+      </div>
+
+      <!-- Nuevo campo para validar contraseña -->
+      <div class="form-group">
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" required>
+        <small style="color: #666; display: block; margin-top: 4px;">Mín 8 chars, 1 mayúscula, 1 minúscula, 1 número y 1 carácter especial.</small>
+      </div>
+      
+      <div class="form-group">
+        <label for="telefono">Teléfono (Máx. 10 dígitos):</label>
+        <input type="number" id="telefono" placeholder="Ej. 9511234567" required>
+      </div>
+
+      <button type="submit">Registrar</button>
+      <button type="button" id="btnLimpiar" class="btn-secondary">Limpiar Campos</button>
+    </form>
+
+    <div class="nav-link">
+      <a href="index.html">Volver al Menú Principal</a>
+    </div>
+  </div>
+
+  <div id="modalEdad" class="modal">
+    <div class="modal-content">
+      <h3>Resultado de Edad</h3>
+      <p id="textoModal"></p>
+      <button id="cerrarModal" class="close-btn">Cerrar</button>
+    </div>
+  </div>
+
+  <!-- Importación de la librería -->
+  <script src="js/utileria.js"></script>
+  <script>
+    const form = document.getElementById('registroForm');
+    const modal = document.getElementById('modalEdad');
+    const textoModal = document.getElementById('textoModal');
+    const cerrarModal = document.getElementById('cerrarModal');
+    const btnLimpiar = document.getElementById('btnLimpiar');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const nombre = document.getElementById('nombre').value;
+      const correo = document.getElementById('correo').value;
+      const fechaNac = document.getElementById('fechaNacimiento').value;
+      const curp = document.getElementById('curp').value;
+      const password = document.getElementById('password').value;
+      const telefono = document.getElementById('telefono').value;
+
+      /* Validaciones usando todas las funciones de utileria.js */
+      if (!Utileria.soloLetras(nombre)) {
+        alert('El nombre solo debe contener letras.');
+        return;
+      }
+
+      if (!Utileria.validarCorreo(correo)) {
+        alert('El formato del correo electrónico no es válido.');
+        return;
+      }
+
+      if (!Utileria.validarCURP(curp)) {
+        alert('El formato de la CURP no es válido.');
+        return;
+      }
+
+      if (!Utileria.validarContra(password)) {
+        alert('La contraseña no cumple con los requisitos mínimos (8 caracteres, mayúscula, minúscula, número y carácter especial).');
+        return;
+      }
+
+      if (!Utileria.validarLongitud(telefono, 10)) {
+        alert('El teléfono no debe exceder los 10 dígitos.');
+        return;
+      }
+
+      const edad = Utileria.calcularEdad(fechaNac);
+      const esMayor = Utileria.esMayorDeEdad(fechaNac);
+
+      textoModal.innerHTML = `Tienes <b>${edad} años</b>.<br>` + 
+                             (esMayor ? '<span style="color:green;">Resgistro exitoso.</span>' : '<span style="color:red;">No es posible resgistrarte.</span>');
+      modal.style.display = 'flex';
+    });
+
+    btnLimpiar.addEventListener('click', function() {
+      Utileria.limpiarCampos(form);
+    });
+
+    cerrarModal.addEventListener('click', function() {
+      modal.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
