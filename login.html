@@ -50,29 +50,38 @@
 
       const correo = document.getElementById('loginCorreo').value;
       const contraseña = document.getElementById('loginPassword').value;
+      /*Imprimir estado de validación en consola*/
+      console.log("--- INTENTO DE LOGIN ---");
+      console.log("Correo evaluado:", correo, "Válido:", Utileria.validarCorreo(correo));
+      console.log("Contraseña evaluada:", contraseña, "Válida:", Utileria.validarContra(contraseña));
 
       
       if (!Utileria.validarCorreo(correo)) {
+        console.warn("Login fallido: Correo con formato inválido.");
         mensajeLogin.innerHTML = '<span class="error-msg">Correo con formato invalido.</span>';
         return;
       }
 
    
       if (!Utileria.validarContra(contraseña)) {
+        console.warn("Login fallido: Contraseña no cumple seguridad.");
         mensajeLogin.innerHTML = '<span class="error-msg">La contraseña no cumple con los requisitos de seguridad.</span>';
         return;
       }
 
       
       if (correo === correo_fe && contraseña === contra_fe) {
+        console.log("¡Login exitoso! Las credenciales coinciden con los valores por defecto.");
         mensajeLogin.innerHTML = '<span class="success-msg">!Login exitoso! Bienvenido al sistema.</span>';
       } else {
+        console.warn("Login fallido: Las credenciales por defecto no coinciden.");
         mensajeLogin.innerHTML = '<span class="error-msg">Correo o contraseña incorrectos (Valores por defecto no coinciden).</span>';
       }
     });
 
 
     btnLimpiarLogin.addEventListener('click', function() {
+      console.log("Limpiando campos del login...");
       Utileria.limpiarCampos(loginForm);
       mensajeLogin.innerHTML = '';
     });

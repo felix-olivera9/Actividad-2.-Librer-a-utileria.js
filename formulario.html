@@ -80,34 +80,51 @@
       const password = document.getElementById('password').value;
       const telefono = document.getElementById('telefono').value;
 
+      /* Verificando valores en consola*/
+      console.log("--- PROCESANDO FORMULARIO ---");
+      console.log("Nombre ingresado:", nombre, "-> ¿Es válido?", Utileria.soloLetras(nombre));
+      console.log("Correo ingresado:", correo, "-> ¿Es válido?", Utileria.validarCorreo(correo));
+      console.log("CURP ingresada:", curp, "-> ¿Es válida?", Utileria.validarCURP(curp));
+      console.log("Contraseña válida?", Utileria.validarContra(password));
+      console.log("Teléfono con longitud válida (máx 10)?", Utileria.validarLongitud(telefono, 10));
+
       /* Validaciones usando todas las funciones de utileria.js */
       if (!Utileria.soloLetras(nombre)) {
+        console.warn("Error: El nombre contiene caracteres no permitidos.");
         alert('El nombre solo debe contener letras.');
         return;
       }
 
       if (!Utileria.validarCorreo(correo)) {
+        console.warn("Error: Formato de correo incorrecto.");
         alert('El formato del correo electrónico no es válido.');
         return;
       }
 
       if (!Utileria.validarCURP(curp)) {
+        console.warn("Error: Formato de CURP incorrecto.");
         alert('El formato de la CURP no es válido.');
         return;
       }
 
       if (!Utileria.validarContra(password)) {
+        console.warn("Error: Contraseña insegura.");
         alert('La contraseña no cumple con los requisitos mínimos (8 caracteres, mayúscula, minúscula, número y carácter especial).');
         return;
       }
 
       if (!Utileria.validarLongitud(telefono, 10)) {
+        console.warn("Error: El teléfono excede la longitud.");
         alert('El teléfono no debe exceder los 10 dígitos.');
         return;
       }
 
       const edad = Utileria.calcularEdad(fechaNac);
       const esMayor = Utileria.esMayorDeEdad(fechaNac);
+      /*cálculos de edad*/
+      console.log("Fecha de nacimiento:", fechaNac);
+      console.log("Edad calculada:", edad);
+      console.log("¿Es mayor de edad?", esMayor);
 
       textoModal.innerHTML = `Tienes <b>${edad} años</b>.<br>` + 
                              (esMayor ? '<span style="color:green;">Resgistro exitoso.</span>' : '<span style="color:red;">No es posible resgistrarte.</span>');
@@ -115,6 +132,7 @@
     });
 
     btnLimpiar.addEventListener('click', function() {
+      console.log("Limpiando campos del formulario...");
       Utileria.limpiarCampos(form);
     });
 
