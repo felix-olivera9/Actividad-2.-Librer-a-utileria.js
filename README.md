@@ -113,13 +113,14 @@ console.log(curpValida); // true
 ### Capturas de Pantalla
 
 **Validación en el Formulario y Modal:**
-![Formulario y Modal](img/captura-formulario.png)
-
+![Formulario-Registo exitoso](img/Formulario_Validaciones_Correctas.png)
+![Formulario-Registo Fallido](img/Formulario_Validaciones_Fallidas.png)
 **Inicio de Sesión (Login):**
-![Login](img/captura-login.png)
+![Logiin-exitoso](img/Login_exitoso.png)
+![Login-invalido](img/Login_invalido.png)
 
 ### Video Demostrativo 
 
 Haz clic en la imagen para ver el video explicativo de la librería en YouTube:
 
-[![Ver Video Demo](img/miniatura-video.png)](https://www.youtube.com/watch?v=TU_ENLACE_DE_YOUTUBE)
+[![Ver Video Demo]()](https://youtu.be/3ZFottIS0Mo)
